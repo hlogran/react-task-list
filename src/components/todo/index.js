@@ -23,6 +23,12 @@ class Todo extends Component {
     this.handleToggleCompleted = this.handleToggleCompleted.bind(this);
   }
 
+  componentDidUpdate(prevProps, prevState){
+    if(!prevState.editing && this.state.editing ){
+      this.textInput.select();
+    }
+  }
+
   render(){
     const {
       task,
@@ -37,13 +43,14 @@ class Todo extends Component {
     if(editing){
       return (
         <div className={'Todo'}>
-          <form>
+          <form className='Todo-edit-form'>
             <input
               type={'text'}
               id={'text'}
               name={'text'}
               value={value}
               onChange={this.handleOnChange}
+              ref={input => this.textInput = input}
             />
             <button onClick={this.handleOnSubmit}>Accept</button>
           </form>
@@ -51,16 +58,16 @@ class Todo extends Component {
       );
     } else {
       return (
-        <div className={'Todo'}>
+        <div className={(completed ? 'Todo completed' : 'Todo')}>
           <div
-            className = {'Todo-task' + (completed ? ' Todo-completed' : '')}
+            className = {'Todo-task'}
             onClick = {this.handleToggleCompleted}
           >
             {task}
           </div>
-          <div className={'Todo-controls'}>
-            <button onClick={this.handleEdit}>Edit</button>
-            <button onClick={this.handleRemove}>Delete</button>
+          <div className={'Todo-buttons'}>
+            <button onClick={this.handleEdit}><i className={'fas fa-pen'} /></button>
+            <button onClick={this.handleRemove}><i className={'fas fa-trash'} /></button>
           </div>
         </div>
       );

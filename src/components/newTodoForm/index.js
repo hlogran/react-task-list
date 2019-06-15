@@ -22,7 +22,7 @@ class NewTodoForm extends Component {
 
     return (
       <div className={'NewTodoForm'}>
-        <h3>New Todo</h3>
+        <label htmlFor={'text'}>New Todo</label>
         <form>
           <input
             type={'text'}

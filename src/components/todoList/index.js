@@ -25,8 +25,7 @@ class TodoList extends Component {
 
     return (
       <div className={'TodoList'}>
-        <h1>Todo List!</h1>
-        <h6>A Simple React Todo List App</h6>
+        <h1>Todo List! <span>A Simple React Todo List App.</span></h1>
         <div className={'TodoList-list'}>
           {todos.map(t => {
             return (
@@ -55,9 +54,13 @@ class TodoList extends Component {
   }
 
   add(task){
-    this.setState({
-      todos: [...this.state.todos, {id: uuid(), task}]
-    });
+    if(task && task.trim() !== ''){
+      this.setState({
+        todos: [...this.state.todos, {id: uuid(), task}]
+      });
+    } else {
+      alert('Please, type some task name')
+    }
   }
 
   editTask(id, task){
